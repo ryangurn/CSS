@@ -3,7 +3,7 @@
 class GetController extends BaseController{
 
   public function index(){
-    return "hello";
+    $this->layout->content = View::make('login._form');
   }
 
 }
