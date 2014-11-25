@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard Starter UI, by Keen IO</title>
+  <title>Class Selection System</title>
   <link rel="stylesheet" href="{{ asset('assets/lib/bootstrap/dist/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{ asset('assets/css/keen-dashboards.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/css/jquery.jgrowl.css') }}" />
 </head>
 <body class="application">
 
@@ -16,17 +17,11 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="navbar-brand" href="./">Dashboard Starter UI</a>
+        <a class="navbar-brand" href="{{ URL::route('get-home') }}">Class Selection System</a>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-left">
-          <li><a href="https://keen.io">Home</a></li>
-          <li><a href="https://keen.io/team">Team</a></li>
-          <li><a href="https://github.com/keenlabs/dashboards/tree/gh-pages/examples/starter-kit">Source</a></li>
-          <li><a href="https://groups.google.com/forum/#!forum/keen-io-devs">Community</a></li><li><a href="http://stackoverflow.com/questions/tagged/keen-io?sort=newest&pageSize=15">Technical Support</a></li>
+          <li><a href="{{ URL::route('get-home') }}">Home</a></li>
         </ul>
       </div>
     </div>
@@ -35,7 +30,7 @@
   <div class="container-fluid">
     <div class="row">
 
-@yield('content')
+      @yield('content')
 
     </div>
 
@@ -47,10 +42,21 @@
 
   <script src="{{ asset('assets/lib/jquery/dist/jquery.min.js') }}"></script>
   <script src="{{ asset('assets/lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-
+  <script src="{{ asset('assets/js/jquery.jgrowl.js') }}"></script>
   <script src="{{ asset('assets/lib/keen-js/dist/keen.min.js') }}"></script>
   <script src="{{ asset('assets/js/meta.js') }}"></script>
   <script src="{{ asset('assets/js/keen.dashboard.js') }}"></script>
+
+  <script type="text/javascript">
+  @if(Session::has('global'))
+  $.jGrowl("{{ Session::get('global') }}", { sticky: true, header:'Notification',position:'bottom-left' });
+  @endif
+  @if(Session::has('errors'))
+  @foreach(json_decode(Session::get('errors'), true) as $error)
+  $.jGrowl("{{ $error }}", { sticky: true, header:"Error",position:'bottom-left' });
+  @endforeach
+  @endif
+  </script>
 
 </body>
 </html>
