@@ -52,7 +52,8 @@ Route::filter('auth', function()
 
 Route::filter('guest', function()
 {
-	if (Sentry::check()) return Redirect::to('/dashboard');
+	# no need to redirect to /dasboard we will just allow them to see everything
+	//if (Sentry::check()) return Redirect::to('/dashboard');
 });
 
 /*
